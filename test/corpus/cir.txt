@@ -1,0 +1,466 @@
+================================================================================
+cir.return (void)
+================================================================================
+cir.return
+--------------------------------------------------------------------------------
+
+(toplevel
+  (operation
+    (custom_operation
+      (cir_dialect))))
+
+================================================================================
+cir.return with value
+================================================================================
+cir.return %0 : i32
+--------------------------------------------------------------------------------
+
+(toplevel
+  (operation
+    (custom_operation
+      (cir_dialect
+        (value_use)
+        (type
+          (builtin_type
+            (integer_type)))))))
+
+================================================================================
+cir.func definition
+================================================================================
+cir.func @add(%arg0 : i32, %arg1 : i32) -> i32 {
+  cir.return %arg0 : i32
+}
+--------------------------------------------------------------------------------
+
+(toplevel
+  (operation
+    (custom_operation
+      (cir_dialect
+        (symbol_ref_id)
+        (func_arg_list
+          (value_use)
+          (type
+            (builtin_type
+              (integer_type)))
+          (value_use)
+          (type
+            (builtin_type
+              (integer_type))))
+        (func_return
+          (type_list_attr_parens
+            (type
+              (builtin_type
+                (integer_type)))))
+        (region
+          (entry_block
+            (operation
+              (custom_operation
+                (cir_dialect
+                  (value_use)
+                  (type
+                    (builtin_type
+                      (integer_type))))))))))))
+
+================================================================================
+cir.call function
+================================================================================
+%0 = cir.call @foo(%arg0, %arg1) : (i32, i32) -> i32
+--------------------------------------------------------------------------------
+
+(toplevel
+  (operation
+    (op_result
+      (value_use))
+    (custom_operation
+      (cir_dialect
+        (symbol_ref_id)
+        (value_use)
+        (value_use)
+        (function_type
+          (type
+            (builtin_type
+              (integer_type)))
+          (type
+            (builtin_type
+              (integer_type)))
+          (type
+            (builtin_type
+              (integer_type))))))))
+
+================================================================================
+cir.load from pointer
+================================================================================
+%0 = cir.load %ptr : !cir.ptr<i32>
+--------------------------------------------------------------------------------
+
+(toplevel
+  (operation
+    (op_result
+      (value_use))
+    (custom_operation
+      (cir_dialect
+        (value_use)
+        (type
+          (dialect_type
+            (pretty_dialect_item
+              (dialect_namespace)
+              (dialect_ident)
+              (pretty_dialect_item_body))))))))
+
+================================================================================
+cir.store to pointer
+================================================================================
+cir.store %val, %ptr : i32, !cir.ptr<i32>
+--------------------------------------------------------------------------------
+
+(toplevel
+  (operation
+    (custom_operation
+      (cir_dialect
+        (value_use)
+        (value_use)
+        (type
+          (builtin_type
+            (integer_type)))
+        (type
+          (dialect_type
+            (pretty_dialect_item
+              (dialect_namespace)
+              (dialect_ident)
+              (pretty_dialect_item_body))))))))
+
+================================================================================
+cir.const integer
+================================================================================
+%0 = cir.const(42) : i32
+--------------------------------------------------------------------------------
+
+(toplevel
+  (operation
+    (op_result
+      (value_use))
+    (custom_operation
+      (cir_dialect
+        (attribute_value
+          (integer_literal))
+        (type
+          (builtin_type
+            (integer_type)))))))
+
+================================================================================
+cir.if with else
+================================================================================
+cir.if %cond {
+  cir.yield
+} else {
+  cir.yield
+}
+--------------------------------------------------------------------------------
+
+(toplevel
+  (operation
+    (custom_operation
+      (cir_dialect
+        (value_use)
+        (region
+          (entry_block
+            (operation
+              (custom_operation
+                (cir_dialect)))))
+        (region
+          (entry_block
+            (operation
+              (custom_operation
+                (cir_dialect)))))))))
+
+================================================================================
+cir.scope with body
+================================================================================
+cir.scope {
+  cir.return
+}
+--------------------------------------------------------------------------------
+
+(toplevel
+  (operation
+    (custom_operation
+      (cir_dialect
+        (region
+          (entry_block
+            (operation
+              (custom_operation
+                (cir_dialect)))))))))
+
+================================================================================
+cir.br unconditional branch
+================================================================================
+cir.br ^bb1
+--------------------------------------------------------------------------------
+
+(toplevel
+  (operation
+    (custom_operation
+      (cir_dialect
+        (caret_id)))))
+
+================================================================================
+cir.cmp comparison
+================================================================================
+%0 = cir.cmp(eq, %a, %b) : i32
+--------------------------------------------------------------------------------
+
+(toplevel
+  (operation
+    (op_result
+      (value_use))
+    (custom_operation
+      (cir_dialect
+        (bare_id)
+        (value_use)
+        (value_use)
+        (type
+          (builtin_type
+            (integer_type)))))))
+
+================================================================================
+cir.get_global address
+================================================================================
+%0 = cir.get_global @myGlobal : !cir.ptr<i32>
+--------------------------------------------------------------------------------
+
+(toplevel
+  (operation
+    (op_result
+      (value_use))
+    (custom_operation
+      (cir_dialect
+        (symbol_ref_id)
+        (type
+          (dialect_type
+            (pretty_dialect_item
+              (dialect_namespace)
+              (dialect_ident)
+              (pretty_dialect_item_body))))))))
+
+================================================================================
+cir.select conditional value
+================================================================================
+%0 = cir.select %cond, %a, %b : i32
+--------------------------------------------------------------------------------
+
+(toplevel
+  (operation
+    (op_result
+      (value_use))
+    (custom_operation
+      (cir_dialect
+        (value_use)
+        (value_use)
+        (value_use)
+        (type
+          (builtin_type
+            (integer_type)))))))
+
+================================================================================
+cir.copy memory
+================================================================================
+cir.copy %dst, %src : !cir.ptr<i32>
+--------------------------------------------------------------------------------
+
+(toplevel
+  (operation
+    (custom_operation
+      (cir_dialect
+        (value_use)
+        (value_use)
+        (type
+          (dialect_type
+            (pretty_dialect_item
+              (dialect_namespace)
+              (dialect_ident)
+              (pretty_dialect_item_body))))))))
+
+================================================================================
+cir.break
+================================================================================
+cir.break
+--------------------------------------------------------------------------------
+
+(toplevel
+  (operation
+    (custom_operation
+      (cir_dialect))))
+
+================================================================================
+cir.continue
+================================================================================
+cir.continue
+--------------------------------------------------------------------------------
+
+(toplevel
+  (operation
+    (custom_operation
+      (cir_dialect))))
+
+================================================================================
+cir.unreachable
+================================================================================
+cir.unreachable
+--------------------------------------------------------------------------------
+
+(toplevel
+  (operation
+    (custom_operation
+      (cir_dialect))))
+
+================================================================================
+cir.trap
+================================================================================
+cir.trap
+--------------------------------------------------------------------------------
+
+(toplevel
+  (operation
+    (custom_operation
+      (cir_dialect))))
+
+================================================================================
+cir.ptr type
+================================================================================
+%0 = cir.load %ptr : !cir.ptr<i32>
+--------------------------------------------------------------------------------
+
+(toplevel
+  (operation
+    (op_result
+      (value_use))
+    (custom_operation
+      (cir_dialect
+        (value_use)
+        (type
+          (dialect_type
+            (pretty_dialect_item
+              (dialect_namespace)
+              (dialect_ident)
+              (pretty_dialect_item_body))))))))
+
+================================================================================
+cir.int type
+================================================================================
+%0 = cir.const(42) : !cir.int<s, 32>
+--------------------------------------------------------------------------------
+
+(toplevel
+  (operation
+    (op_result
+      (value_use))
+    (custom_operation
+      (cir_dialect
+        (attribute_value
+          (integer_literal))
+        (type
+          (dialect_type
+            (pretty_dialect_item
+              (dialect_namespace)
+              (dialect_ident)
+              (pretty_dialect_item_body))))))))
+
+================================================================================
+cir.bool type
+================================================================================
+%0 = cir.const(true) : !cir.bool
+--------------------------------------------------------------------------------
+
+(toplevel
+  (operation
+    (op_result
+      (value_use))
+    (custom_operation
+      (cir_dialect
+        (attribute_value
+          (bool_literal))
+        (type
+          (dialect_type
+            (pretty_dialect_item
+              (dialect_namespace)
+              (dialect_ident))))))))
+
+================================================================================
+cir.alloca stack allocation
+================================================================================
+%0 = cir.alloca !cir.int<s, 32>, !cir.ptr<!cir.int<s, 32>>, ["x"]
+--------------------------------------------------------------------------------
+
+(toplevel
+  (operation
+    (op_result
+      (value_use))
+    (custom_operation
+      (cir_dialect
+        (type
+          (dialect_type
+            (pretty_dialect_item
+              (dialect_namespace)
+              (dialect_ident)
+              (pretty_dialect_item_body))))
+        (type
+          (dialect_type
+            (pretty_dialect_item
+              (dialect_namespace)
+              (dialect_ident)
+              (pretty_dialect_item_body
+                (pretty_dialect_item_body)))))
+        (string_literal)))))
+
+================================================================================
+cir.cast type conversion
+================================================================================
+%0 = cir.cast(int_to_bool, %1 : !cir.int<s, 32>), !cir.bool
+--------------------------------------------------------------------------------
+
+(toplevel
+  (operation
+    (op_result
+      (value_use))
+    (custom_operation
+      (cir_dialect
+        (bare_id)
+        (value_use)
+        (type
+          (dialect_type
+            (pretty_dialect_item
+              (dialect_namespace)
+              (dialect_ident)
+              (pretty_dialect_item_body))))
+        (type
+          (dialect_type
+            (pretty_dialect_item
+              (dialect_namespace)
+              (dialect_ident))))))))
+
+================================================================================
+module with CIR function
+================================================================================
+module {
+  cir.func @main() {
+    cir.return
+  }
+}
+--------------------------------------------------------------------------------
+
+(toplevel
+  (operation
+    (custom_operation
+      (builtin_dialect
+        (region
+          (entry_block
+            (operation
+              (custom_operation
+                (cir_dialect
+                  (symbol_ref_id)
+                  (func_arg_list)
+                  (region
+                    (entry_block
+                      (operation
+                        (custom_operation
+                          (cir_dialect))))))))))))))

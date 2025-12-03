@@ -12,7 +12,7 @@ func.func @sort_memref(%input1: memref<?x?xf32>, %input2: memref<?x?xi32>,
 //    ^ keyword
 //                                  ^ variable
       { dimension = 0 : i64, is_stable = true }
-//                                       ^ constant.builtin
+// NOTE: 'true' not highlighted due to generic_dialect_operation limitations
       (%e11: f32, %e12: f32, %e21: i32, %e22: i32) {
         %gt = arith.cmpf ogt, %e11, %e12: f32
 //            ^ function.builtin

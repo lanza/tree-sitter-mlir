@@ -1548,6 +1548,21 @@
     }
   },
   {
+    "type": "callsite_location",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "location",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "caret_id",
     "named": true,
     "fields": {}
@@ -1676,6 +1691,674 @@
     }
   },
   {
+    "type": "cir_dialect",
+    "named": true,
+    "fields": {
+      "addr": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "value_use",
+            "named": true
+          }
+        ]
+      },
+      "addr_type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      },
+      "arguments": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "func_arg_list",
+            "named": true
+          }
+        ]
+      },
+      "attributes": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "attribute",
+            "named": true
+          }
+        ]
+      },
+      "base": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "value_use",
+            "named": true
+          }
+        ]
+      },
+      "base_type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      },
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "region",
+            "named": true
+          }
+        ]
+      },
+      "callee": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "symbol_ref_id",
+            "named": true
+          }
+        ]
+      },
+      "char": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "value_use",
+            "named": true
+          }
+        ]
+      },
+      "cleanup": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "region",
+            "named": true
+          }
+        ]
+      },
+      "cond": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "region",
+            "named": true
+          },
+          {
+            "type": "value_use",
+            "named": true
+          }
+        ]
+      },
+      "cond_type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      },
+      "dest": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "caret_id",
+            "named": true
+          }
+        ]
+      },
+      "direction": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "bare_id",
+            "named": true
+          }
+        ]
+      },
+      "dst": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "value_use",
+            "named": true
+          }
+        ]
+      },
+      "else": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "region",
+            "named": true
+          }
+        ]
+      },
+      "exception": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "value_use",
+            "named": true
+          }
+        ]
+      },
+      "false_dest": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "caret_id",
+            "named": true
+          }
+        ]
+      },
+      "false_region": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "region",
+            "named": true
+          }
+        ]
+      },
+      "false_val": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "value_use",
+            "named": true
+          }
+        ]
+      },
+      "fnptr": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "value_use",
+            "named": true
+          }
+        ]
+      },
+      "index": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "integer_literal",
+            "named": true
+          }
+        ]
+      },
+      "kind": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "bare_id",
+            "named": true
+          }
+        ]
+      },
+      "len": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "value_use",
+            "named": true
+          }
+        ]
+      },
+      "lhs": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "value_use",
+            "named": true
+          }
+        ]
+      },
+      "lhs_type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      },
+      "member": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "value_use",
+            "named": true
+          }
+        ]
+      },
+      "member_type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "symbol_ref_id",
+            "named": true
+          }
+        ]
+      },
+      "operand": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "value_use",
+            "named": true
+          }
+        ]
+      },
+      "operands": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "value_use",
+            "named": true
+          }
+        ]
+      },
+      "predicate": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "bare_id",
+            "named": true
+          }
+        ]
+      },
+      "ptr_type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      },
+      "ready": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "region",
+            "named": true
+          }
+        ]
+      },
+      "results": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "type",
+            "named": true
+          },
+          {
+            "type": "value_use",
+            "named": true
+          }
+        ]
+      },
+      "resume": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "region",
+            "named": true
+          }
+        ]
+      },
+      "return": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "->",
+            "named": false
+          },
+          {
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "from",
+            "named": false
+          },
+          {
+            "type": "func_return",
+            "named": true
+          },
+          {
+            "type": "function_type",
+            "named": true
+          },
+          {
+            "type": "into",
+            "named": false
+          },
+          {
+            "type": "to",
+            "named": false
+          },
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      },
+      "rhs": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "value_use",
+            "named": true
+          }
+        ]
+      },
+      "rhs_type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      },
+      "src": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "value_use",
+            "named": true
+          }
+        ]
+      },
+      "src_type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      },
+      "step": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "region",
+            "named": true
+          }
+        ]
+      },
+      "stride": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "value_use",
+            "named": true
+          }
+        ]
+      },
+      "stride_type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      },
+      "suspend": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "region",
+            "named": true
+          }
+        ]
+      },
+      "then": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "region",
+            "named": true
+          }
+        ]
+      },
+      "true_dest": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "caret_id",
+            "named": true
+          }
+        ]
+      },
+      "true_region": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "region",
+            "named": true
+          }
+        ]
+      },
+      "true_val": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "value_use",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "attribute_alias",
+            "named": true
+          },
+          {
+            "type": "attribute_value",
+            "named": true
+          },
+          {
+            "type": "dialect_attribute",
+            "named": true
+          },
+          {
+            "type": "value_use",
+            "named": true
+          }
+        ]
+      },
+      "value_type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "attribute_alias",
+          "named": true
+        },
+        {
+          "type": "attribute_value",
+          "named": true
+        },
+        {
+          "type": "bare_id",
+          "named": true
+        },
+        {
+          "type": "caret_id",
+          "named": true
+        },
+        {
+          "type": "dialect_attribute",
+          "named": true
+        },
+        {
+          "type": "dictionary_attribute",
+          "named": true
+        },
+        {
+          "type": "integer_literal",
+          "named": true
+        },
+        {
+          "type": "region",
+          "named": true
+        },
+        {
+          "type": "string_literal",
+          "named": true
+        },
+        {
+          "type": "symbol_ref_id",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "value_use",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "complex_literal",
     "named": true,
     "fields": {},
@@ -1771,7 +2454,15 @@
           "named": true
         },
         {
+          "type": "cir_dialect",
+          "named": true
+        },
+        {
           "type": "func_dialect",
+          "named": true
+        },
+        {
+          "type": "generic_dialect_operation",
           "named": true
         },
         {
@@ -1930,6 +2621,21 @@
     "type": "fastmath_attr",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "file_location",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "string_literal",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "func_arg_list",
@@ -2131,6 +2837,25 @@
     }
   },
   {
+    "type": "fused_location",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_value",
+          "named": true
+        },
+        {
+          "type": "location",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "gather_dims_attr",
     "named": true,
     "fields": {},
@@ -2146,6 +2871,130 @@
           "type": "type",
           "named": true
         },
+        {
+          "type": "value_use",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "generic_dialect_operation",
+    "named": true,
+    "fields": {
+      "attributes": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "dictionary_attribute",
+            "named": true
+          }
+        ]
+      },
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "region",
+            "named": true
+          }
+        ]
+      },
+      "callee": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "symbol_ref_id",
+            "named": true
+          }
+        ]
+      },
+      "operands": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "value_use",
+            "named": true
+          }
+        ]
+      },
+      "regions": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "region",
+            "named": true
+          }
+        ]
+      },
+      "return": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "from",
+            "named": false
+          },
+          {
+            "type": "function_type",
+            "named": true
+          },
+          {
+            "type": "into",
+            "named": false
+          },
+          {
+            "type": "to",
+            "named": false
+          },
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
         {
           "type": "value_use",
           "named": true
@@ -2487,7 +3336,27 @@
       "required": true,
       "types": [
         {
+          "type": "callsite_location",
+          "named": true
+        },
+        {
+          "type": "file_location",
+          "named": true
+        },
+        {
+          "type": "fused_location",
+          "named": true
+        },
+        {
+          "type": "name_location",
+          "named": true
+        },
+        {
           "type": "string_literal",
+          "named": true
+        },
+        {
+          "type": "unknown_location",
           "named": true
         }
       ]
@@ -3536,6 +4405,25 @@
       "types": [
         {
           "type": "attribute_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "name_location",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "location",
+          "named": true
+        },
+        {
+          "type": "string_literal",
           "named": true
         }
       ]
@@ -5869,6 +6757,14 @@
     "named": false
   },
   {
+    "type": "alias",
+    "named": false
+  },
+  {
+    "type": "align",
+    "named": false
+  },
+  {
     "type": "arith.addf",
     "named": false
   },
@@ -6065,6 +6961,14 @@
     "named": false
   },
   {
+    "type": "at",
+    "named": false
+  },
+  {
+    "type": "atomic",
+    "named": false
+  },
+  {
     "type": "atomic_rmw_attr",
     "named": true
   },
@@ -6075,6 +6979,10 @@
   {
     "type": "bare_id",
     "named": true
+  },
+  {
+    "type": "body",
+    "named": false
   },
   {
     "type": "bool_literal",
@@ -6101,6 +7009,10 @@
     "named": false
   },
   {
+    "type": "bytes",
+    "named": false
+  },
+  {
     "type": "call",
     "named": false
   },
@@ -6109,7 +7021,19 @@
     "named": false
   },
   {
+    "type": "callsite",
+    "named": false
+  },
+  {
     "type": "case",
+    "named": false
+  },
+  {
+    "type": "catch",
+    "named": false
+  },
+  {
+    "type": "cc",
     "named": false
   },
   {
@@ -6129,12 +7053,260 @@
     "named": false
   },
   {
+    "type": "cir.alloca",
+    "named": false
+  },
+  {
+    "type": "cir.await",
+    "named": false
+  },
+  {
+    "type": "cir.binop",
+    "named": false
+  },
+  {
+    "type": "cir.blockaddress",
+    "named": false
+  },
+  {
+    "type": "cir.br",
+    "named": false
+  },
+  {
+    "type": "cir.brcond",
+    "named": false
+  },
+  {
+    "type": "cir.break",
+    "named": false
+  },
+  {
+    "type": "cir.call",
+    "named": false
+  },
+  {
+    "type": "cir.case",
+    "named": false
+  },
+  {
+    "type": "cir.cast",
+    "named": false
+  },
+  {
+    "type": "cir.catch_param",
+    "named": false
+  },
+  {
+    "type": "cir.clrsb",
+    "named": false
+  },
+  {
+    "type": "cir.clz",
+    "named": false
+  },
+  {
+    "type": "cir.cmp",
+    "named": false
+  },
+  {
+    "type": "cir.condition",
+    "named": false
+  },
+  {
+    "type": "cir.const",
+    "named": false
+  },
+  {
+    "type": "cir.continue",
+    "named": false
+  },
+  {
+    "type": "cir.copy",
+    "named": false
+  },
+  {
+    "type": "cir.ctz",
+    "named": false
+  },
+  {
+    "type": "cir.do",
+    "named": false
+  },
+  {
+    "type": "cir.dyn_cast",
+    "named": false
+  },
+  {
+    "type": "cir.ffs",
+    "named": false
+  },
+  {
+    "type": "cir.for",
+    "named": false
+  },
+  {
+    "type": "cir.func",
+    "named": false
+  },
+  {
+    "type": "cir.get_global",
+    "named": false
+  },
+  {
+    "type": "cir.get_member",
+    "named": false
+  },
+  {
+    "type": "cir.get_runtime_member",
+    "named": false
+  },
+  {
+    "type": "cir.global",
+    "named": false
+  },
+  {
+    "type": "cir.if",
+    "named": false
+  },
+  {
+    "type": "cir.indirectbr",
+    "named": false
+  },
+  {
+    "type": "cir.label",
+    "named": false
+  },
+  {
+    "type": "cir.libc.fabs",
+    "named": false
+  },
+  {
+    "type": "cir.libc.memchr",
+    "named": false
+  },
+  {
+    "type": "cir.libc.memcpy",
+    "named": false
+  },
+  {
+    "type": "cir.load",
+    "named": false
+  },
+  {
+    "type": "cir.loop",
+    "named": false
+  },
+  {
+    "type": "cir.objsize",
+    "named": false
+  },
+  {
+    "type": "cir.parity",
+    "named": false
+  },
+  {
+    "type": "cir.popcount",
+    "named": false
+  },
+  {
+    "type": "cir.ptr_stride",
+    "named": false
+  },
+  {
+    "type": "cir.resume",
+    "named": false
+  },
+  {
+    "type": "cir.return",
+    "named": false
+  },
+  {
+    "type": "cir.scope",
+    "named": false
+  },
+  {
+    "type": "cir.select",
+    "named": false
+  },
+  {
+    "type": "cir.shift",
+    "named": false
+  },
+  {
+    "type": "cir.stack_restore",
+    "named": false
+  },
+  {
+    "type": "cir.stack_save",
+    "named": false
+  },
+  {
+    "type": "cir.store",
+    "named": false
+  },
+  {
+    "type": "cir.struct_element_addr",
+    "named": false
+  },
+  {
+    "type": "cir.switch",
+    "named": false
+  },
+  {
+    "type": "cir.ternary",
+    "named": false
+  },
+  {
+    "type": "cir.throw",
+    "named": false
+  },
+  {
+    "type": "cir.trap",
+    "named": false
+  },
+  {
+    "type": "cir.try",
+    "named": false
+  },
+  {
+    "type": "cir.try_call",
+    "named": false
+  },
+  {
+    "type": "cir.unary",
+    "named": false
+  },
+  {
+    "type": "cir.unreachable",
+    "named": false
+  },
+  {
+    "type": "cir.while",
+    "named": false
+  },
+  {
+    "type": "cir.yield",
+    "named": false
+  },
+  {
+    "type": "cleanup",
+    "named": false
+  },
+  {
+    "type": "comdat",
+    "named": false
+  },
+  {
     "type": "comment",
     "named": true,
     "extra": true
   },
   {
     "type": "complex",
+    "named": false
+  },
+  {
+    "type": "cond",
     "named": false
   },
   {
@@ -6146,6 +7318,14 @@
     "named": false
   },
   {
+    "type": "coroutine",
+    "named": false
+  },
+  {
+    "type": "ctor",
+    "named": false
+  },
+  {
     "type": "default",
     "named": false
   },
@@ -6154,7 +7334,31 @@
     "named": false
   },
   {
+    "type": "dso_local",
+    "named": false
+  },
+  {
+    "type": "dtor",
+    "named": false
+  },
+  {
     "type": "else",
+    "named": false
+  },
+  {
+    "type": "exception",
+    "named": false
+  },
+  {
+    "type": "external",
+    "named": false
+  },
+  {
+    "type": "extra",
+    "named": false
+  },
+  {
+    "type": "false",
     "named": false
   },
   {
@@ -6194,7 +7398,19 @@
     "named": false
   },
   {
+    "type": "fused",
+    "named": false
+  },
+  {
     "type": "gather_dims",
+    "named": false
+  },
+  {
+    "type": "global_ctor",
+    "named": false
+  },
+  {
+    "type": "global_dtor",
     "named": false
   },
   {
@@ -6230,6 +7446,10 @@
     "named": true
   },
   {
+    "type": "internal",
+    "named": false
+  },
+  {
     "type": "into",
     "named": false
   },
@@ -6243,6 +7463,10 @@
   },
   {
     "type": "iter_args",
+    "named": false
+  },
+  {
+    "type": "lang_address_space",
     "named": false
   },
   {
@@ -6491,6 +7715,10 @@
   },
   {
     "type": "linalg.yield",
+    "named": false
+  },
+  {
+    "type": "linkonce_odr",
     "named": false
   },
   {
@@ -6786,6 +8014,10 @@
     "named": false
   },
   {
+    "type": "no_inline",
+    "named": false
+  },
+  {
     "type": "nofold_attr",
     "named": true
   },
@@ -6795,6 +8027,10 @@
   },
   {
     "type": "offset",
+    "named": false
+  },
+  {
+    "type": "optnone",
     "named": false
   },
   {
@@ -6814,12 +8050,32 @@
     "named": false
   },
   {
+    "type": "ptr",
+    "named": false
+  },
+  {
+    "type": "ready",
+    "named": false
+  },
+  {
     "type": "reduce",
+    "named": false
+  },
+  {
+    "type": "ref",
+    "named": false
+  },
+  {
+    "type": "relative_layout",
     "named": false
   },
   {
     "type": "restrict_attr",
     "named": true
+  },
+  {
+    "type": "resume",
+    "named": false
   },
   {
     "type": "return",
@@ -6882,11 +8138,19 @@
     "named": false
   },
   {
+    "type": "side_effect",
+    "named": false
+  },
+  {
     "type": "size_hint",
     "named": false
   },
   {
     "type": "sizes",
+    "named": false
+  },
+  {
+    "type": "special_member",
     "named": false
   },
   {
@@ -6906,7 +8170,15 @@
     "named": true
   },
   {
+    "type": "suspend",
+    "named": false
+  },
+  {
     "type": "symbol",
+    "named": false
+  },
+  {
+    "type": "target_address_space",
     "named": false
   },
   {
@@ -6998,11 +8270,39 @@
     "named": false
   },
   {
+    "type": "thread_local",
+    "named": false
+  },
+  {
+    "type": "tls_dyn",
+    "named": false
+  },
+  {
+    "type": "tls_init_exec",
+    "named": false
+  },
+  {
+    "type": "tls_local_dyn",
+    "named": false
+  },
+  {
+    "type": "tls_local_exec",
+    "named": false
+  },
+  {
     "type": "to",
     "named": false
   },
   {
+    "type": "true",
+    "named": false
+  },
+  {
     "type": "tuple",
+    "named": false
+  },
+  {
+    "type": "type",
     "named": false
   },
   {
@@ -7015,6 +8315,10 @@
   },
   {
     "type": "unit_literal",
+    "named": true
+  },
+  {
+    "type": "unknown_location",
     "named": true
   },
   {
@@ -7166,11 +8470,27 @@
     "named": false
   },
   {
+    "type": "volatile",
+    "named": false
+  },
+  {
+    "type": "weak",
+    "named": false
+  },
+  {
+    "type": "while",
+    "named": false
+  },
+  {
     "type": "writable_attr",
     "named": true
   },
   {
     "type": "x",
+    "named": false
+  },
+  {
+    "type": "zero_poison",
     "named": false
   },
   {

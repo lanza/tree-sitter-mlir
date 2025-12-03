@@ -13,6 +13,7 @@ const tensor_dialect = require('./dialect/tensor');
 const bufferization_dialect = require('./dialect/bufferization');
 const affine_dialect = require('./dialect/affine');
 const linalg_dialect = require('./dialect/linalg');
+const cir_dialect = require('./dialect/cir');
 
 const common = {
   // Top level production:
@@ -30,7 +31,8 @@ const common = {
   //  decimal-literal ::= digit+
   //  hexadecimal-literal ::= `0x` hex_digit+
   //  float-literal ::= [-+]?[0-9]+[.][0-9]*([eE][-+]?[0-9]+)?
-  //  string-literal  ::= `"` [^"\n\f\v\r]* `"`   TODO: define escaping rules
+  //  string-literal  ::= `"` [^"\n\f\v\r]* `"`
+  //  Escape sequences: \\, \", \n, \t, \xNN (hex)
   //
   _digit: $ => /[0-9]/,
   integer_literal: $ => choice($._decimal_literal, $._hexadecimal_literal),
@@ -39,7 +41,12 @@ const common = {
   float_literal: $ => token(seq(
     optional(/[-+]/), repeat1(/[0-9]/), '.', repeat(/[0-9]/),
     optional(seq(/[eE]/, optional(/[-+]/), repeat1(/[0-9]/))))),
-  string_literal: $ => token(seq('"', repeat(/[^\\"\n\f\v\r]+/), '"')),
+  string_literal: $ => token(seq('"', repeat(choice(
+    /[^\\"\n\f\v\r]+/,
+    /\\[\\nrtfv"]/,
+    /\\x[0-9a-fA-F]{2}/,
+    /\\[0-9]{1,3}/
+  )), '"')),
   bool_literal: $ => token(choice('true', 'false')),
   unit_literal: $ => token('unit'),
   uninitialized_literal: $ => token('uninitialized'),
@@ -117,8 +124,28 @@ const common = {
   dictionary_attribute: $ => seq('{', optional($.attribute_entry),
     repeat(seq(',', $.attribute_entry)), '}'),
   trailing_location: $ => seq(token('loc'), '(', $.location, ')'),
-  // TODO: Complete location forms.
-  location: $ => $.string_literal,
+  // Location forms:
+  //   location ::= string-literal | callsite-location | fused-location |
+  //                name-location | file-location | unknown-location
+  //   callsite-location ::= 'callsite' '(' location 'at' location ')'
+  //   fused-location ::= 'fused' ('<' attribute '>')? '[' location (',' location)* ']'
+  //   name-location ::= string-literal '(' location ')'
+  //   file-location ::= string-literal ':' decimal-literal ':' decimal-literal
+  //   unknown-location ::= 'unknown'
+  location: $ => choice(
+    $.callsite_location,
+    $.fused_location,
+    $.name_location,
+    $.file_location,
+    $.unknown_location,
+    $.string_literal
+  ),
+  callsite_location: $ => seq('callsite', '(', $.location, 'at', $.location, ')'),
+  fused_location: $ => seq('fused', optional(seq('<', $.attribute_value, '>')),
+    '[', $.location, repeat(seq(',', $.location)), ']'),
+  name_location: $ => seq($.string_literal, '(', $.location, ')'),
+  file_location: $ => seq($.string_literal, ':', $._decimal_literal, ':', $._decimal_literal),
+  unknown_location: $ => 'unknown',
 
   // Blocks
   //   block           ::= block-label operation+
@@ -163,7 +190,7 @@ const common = {
   //
   //   function-type ::= (type | type-list-parens) `->` (type |
   //                      type-list-parens)
-  type: $ => choice($.type_alias, $.dialect_type, $.builtin_type),
+  type: $ => choice($.dialect_type, $.type_alias, $.builtin_type),
   _type_list_no_parens: $ => prec.left(seq($.type, repeat(seq(',', $.type)))),
   _type_list_parens: $ => seq('(', optional($._type_list_no_parens), ')'),
   function_type: $ => seq(choice($.type, $._type_list_parens), $._function_return),
@@ -226,8 +253,12 @@ const common = {
   // signless-integer-type ::= `i`[1-9][0-9]*
   // integer-type ::= signed-integer-type | unsigned-integer-type | signless-integer-type
   integer_type: $ => token(seq(choice('si', 'ui', 'i'), /[1-9]/, repeat(/[0-9]/))),
-  float_type: $ => token(choice('f16', 'f32', 'f64', 'f80', 'f128', 'bf16',
-    'f8E4M3FN', 'f8E5M2')),
+  // Float types: standard IEEE types, brain float, and FP8 variants
+  // f8E5M2, f8E4M3FN, f8E5M2FNUZ, f8E4M3FNUZ, f8E4M3B11FNUZ are FP8 types
+  // tf32 is TensorFloat-32
+  float_type: $ => token(choice(
+    'f16', 'f32', 'f64', 'f80', 'f128', 'bf16', 'tf32',
+    'f8E5M2', 'f8E4M3FN', 'f8E5M2FNUZ', 'f8E4M3FNUZ', 'f8E4M3B11FNUZ', 'f8E3M4')),
   index_type: $ => token('index'),
   none_type: $ => token('none'),
   complex_type: $ => seq(token('complex'), '<', $._prim_type, '>'),
@@ -409,7 +440,7 @@ const common = {
   // Comment (standard BCPL)
   comment: $ => token(seq('//', /.*/)),
 
-  // TODO: complete
+  // Custom operations: known dialects + generic fallback
   custom_operation: $ => choice(
     $.builtin_dialect,
     $.func_dialect,
@@ -423,8 +454,53 @@ const common = {
     $.tensor_dialect,
     $.bufferization_dialect,
     $.affine_dialect,
-    $.linalg_dialect
-  )
+    $.linalg_dialect,
+    $.cir_dialect,
+    // Generic operation for unknown dialects
+    $.generic_dialect_operation
+  ),
+
+  // Generic dialect operation: dialect.operation_name operands attributes : types
+  // Matches any operation from dialects we haven't explicitly implemented
+  // Multiple patterns to handle various syntax forms
+  generic_dialect_operation: $ => prec.right(-1, seq(
+    field('operation', token(seq(
+      /[a-zA-Z_][a-zA-Z0-9_]*/, // dialect name
+      '.',
+      /[a-zA-Z_][a-zA-Z0-9_.]*/ // operation name
+    ))),
+    // Match common operation patterns - try each in order
+    optional(choice(
+      // Pattern 1: operands, optional attrs, type annotation
+      seq(
+        field('operands', $._value_use_list_parens),
+        field('attributes', optional($.dictionary_attribute)),
+        field('return', choice($._type_annotation, $._function_type_annotation))
+      ),
+      // Pattern 2: just type annotation
+      seq(
+        field('attributes', optional($.dictionary_attribute)),
+        field('return', choice($._type_annotation, $._function_type_annotation))
+      ),
+      // Pattern 3: operands and regions
+      seq(
+        field('operands', optional($._value_use_list_parens)),
+        field('regions', $._region_list),
+        field('attributes', optional($.dictionary_attribute)),
+        field('return', optional(choice($._type_annotation, $._function_type_annotation)))
+      ),
+      // Pattern 4: just operands, no type
+      field('operands', $._value_use_list_parens),
+      // Pattern 5: just a region
+      field('body', $.region),
+      // Pattern 6: symbol ref with optional type
+      seq(
+        field('callee', $.symbol_ref_id),
+        optional($._value_use_list_parens),
+        field('return', optional(choice($._type_annotation, $._function_type_annotation)))
+      )
+    ))
+  ))
 }
 
 module.exports = grammar({
@@ -432,7 +508,8 @@ module.exports = grammar({
   extras: $ => [/\s/, $.comment],
   conflicts: $ => [
     [$._static_dim_list, $._static_dim_list],
-    [$.dictionary_attribute, $.region]
+    [$.dictionary_attribute, $.region],
+    [$.attribute, $._ins_outs_attributes]
   ],
   rules: Object.assign(common,
     builtin_dialect,
@@ -447,5 +524,6 @@ module.exports = grammar({
     tensor_dialect,
     bufferization_dialect,
     affine_dialect,
-    linalg_dialect)
+    linalg_dialect,
+    cir_dialect)
 });
